@@ -10,7 +10,7 @@ class List
     end
 
     def add_item(title, deadline, *description)
-        description = ""
+        description = description.first || ""
         if Item.valid_date?(deadline)
             @items << Item.new(title, deadline, description)
             true
@@ -43,16 +43,18 @@ class List
     end
 
     def print
-        puts "="*35 + "\n" + @label.center(35) + "\n" + "-"*35
-        @items.each_with_index{|item, index| puts index.to_s.ljust(5) + item.title.ljust(20) + item.deadline.ljust(10)}
-        puts "="*35
+        puts "="*45 + "\n" + @label.center(45) + "\n" + "-"*45
+        puts "idx".ljust(5) + "item".ljust(20) + "done?".ljust(10) + "deadline\n" + "-"*45
+        @items.each_with_index{|item, index| puts index.to_s.ljust(5) + item.title.ljust(20) + item.done.to_s.ljust(10) + item.deadline}
+        puts "="*45
     end
 
     def print_full_item(index)
         item = @items[index]
-        puts "-"*35 + "\n" + item.title.ljust(25) + item.deadline
+        puts "-"*45 + "\n" + item.title.ljust(35) + item.deadline
+        puts "Done: " + item.done.to_s
         puts item.description
-        puts "-"*35
+        puts "-"*45
     end
 
     def print_priority
@@ -88,6 +90,22 @@ class List
 
     def sort_by_date
         @items.sort_by!{|item| item.deadline}
+    end
+
+    def toggle_item(index)
+        @items[index].toggle
+    end
+
+    def remove_item(index)
+        if valid_index?(index)
+            @items.delete_at(index)
+            true
+        else false
+        end
+    end
+
+    def purge
+        @items.select!{|item| !item.done}
     end
 end
 
