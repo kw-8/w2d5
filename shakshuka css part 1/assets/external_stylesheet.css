@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 38px;
+}
+
+h2 {font-size: 32px;}
+
+.ingredients-list {
+    list-style: square inside;
+}
+
+header > img {
+    width: 100px;
+}
+
+ol {
+    list-style: cjk-earthly-branch inside;
+}
+
+ul li a {
+    text-decoration: unset;
+}
+
+html {
+  background-color: bisque;
+}
+
+input{
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="submit"] {
+    background-color: gold;
+}
+input[type="submit"]:hover {
+    background-color: darken;
+}
